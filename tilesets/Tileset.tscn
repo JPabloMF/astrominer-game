@@ -1,0 +1,183 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tilesets/TilesetTestAstroMiner.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16.109, 15.9837 )
+
+[node name="Tileset" type="Node2D"]
+position = Vector2( 64, 0 )
+
+[node name="cornerTopLeft" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="cornerTopLeft"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cornerTopLeft/StaticBody2D"]
+position = Vector2( -0.121521, -0.159084 )
+shape = SubResource( 1 )
+
+[node name="middleTop" type="Sprite" parent="."]
+position = Vector2( 127.528, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 32, 32 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="middleTop"]
+position = Vector2( 0.0607605, 0.117613 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="middleTop/StaticBody2D2"]
+position = Vector2( -0.121521, -0.159084 )
+shape = SubResource( 1 )
+
+[node name="cornerTopRight" type="Sprite" parent="."]
+position = Vector2( 256, 0 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 32, 32 )
+
+[node name="Right" type="Sprite" parent="."]
+position = Vector2( 256, 128 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 32, 32 )
+
+[node name="Middle" type="Sprite" parent="."]
+position = Vector2( 128, 128 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 32, 32, 32 )
+
+[node name="Left" type="Sprite" parent="."]
+position = Vector2( 0, 128 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 32, 32, 32 )
+
+[node name="cornerBottomLeft" type="Sprite" parent="."]
+position = Vector2( 0, 256 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 64, 32, 32 )
+
+[node name="middleBottom" type="Sprite" parent="."]
+position = Vector2( 128, 256.472 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 64, 32, 32 )
+
+[node name="cornerBottomRight" type="Sprite" parent="."]
+position = Vector2( 256, 256 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 64, 32, 32 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 378.308, -3.84229 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 96, 0, 32, 32 )
+
+[node name="outsideCornerTopLeft" type="Sprite" parent="."]
+position = Vector2( 378.308, 133.963 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 96, 32, 32, 32 )
+
+[node name="outsideCornerBottomLeft" type="Sprite" parent="."]
+position = Vector2( 375.927, 254.606 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 96, 64, 32, 32 )
+
+[node name="backgroundRock" type="Sprite" parent="."]
+position = Vector2( 498.157, -4.1405 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 0, 32, 32 )
+
+[node name="outsideCornerTopRight" type="Sprite" parent="."]
+position = Vector2( 498.95, 133.17 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 32, 32, 32 )
+
+[node name="outsideCornerBottomRight" type="Sprite" parent="."]
+position = Vector2( 498.157, 254.606 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 64, 32, 32 )
+
+[node name="insideCornerTopLeft" type="Sprite" parent="."]
+position = Vector2( 612.657, -4.894 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 0, 32, 32 )
+
+[node name="insideCornerBottomLeft" type="Sprite" parent="."]
+position = Vector2( 609.657, 129.606 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 32, 32, 32 )
+
+[node name="insideCornerTopRigh" type="Sprite" parent="."]
+position = Vector2( 724.157, -5.394 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 0, 32, 32 )
+
+[node name="insideCornerBottomRigh" type="Sprite" parent="."]
+position = Vector2( 725.157, 129.106 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 32, 32, 32 )
+
+[node name="insideTop" type="Sprite" parent="."]
+position = Vector2( 603.869, 211.695 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 64, 32, 32 )
+
+[node name="insideTop2" type="Sprite" parent="."]
+position = Vector2( 727.045, 212.639 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 64, 32, 32 )
+
+[node name="insideRock" type="Sprite" parent="."]
+position = Vector2( 812.073, -6.17519 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 224, 0, 32, 32 )
+
+[node name="insideRock2" type="Sprite" parent="."]
+position = Vector2( 810.884, 129.394 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 224, 32, 32, 32 )
+
+[node name="insideRock3" type="Sprite" parent="."]
+position = Vector2( 812.668, 212.639 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 224, 64, 32, 32 )
+
+[node name="insideBottom" type="Sprite" parent="."]
+position = Vector2( 896.507, -5.58058 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 64, 32, 32 )
+
+[node name="pilar" type="Sprite" parent="."]
+position = Vector2( 894.617, 126.081 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 32, 32, 32 )
+
+[node name="pilarBase" type="Sprite" parent="."]
+position = Vector2( 893.823, 211.007 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 0, 32, 32 )
