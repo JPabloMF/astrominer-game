@@ -7,17 +7,32 @@ export (String,"right","left","up","down") var initialDirection
 const DIRECTIONS = {"RIGHT": "right", "LEFT": "left", "UP": "up", "DOWN": "down"}
 var flyDistance = 100
 var gems_ammount = 0
-var lives = 2
+var has_shield = true
+var _timer = null
 
 onready var energy_bar = $EnergyBar
 onready var player_energy = $Energy
 
 onready var gem_indicator_label = $GemsIndicator/Label
 
+func get_timer():
+	_timer = Timer.new()
+	add_child(_timer)
+	_timer.connect("timeout", self, "_on_Timer_timeout")
+	_timer.set_wait_time(1.5)
+	_timer.set_one_shot(false) # Make sure it loops
+	
+func start_timer():
+	_timer.start()
+	
+func stop_timer():
+	_timer.stop()
+
 func _ready():
 	player_energy.connect("changed",energy_bar,"set_value")
 	player_energy.connect("max_changed",energy_bar,"set_max")
 	player_energy.initialize()
+	get_timer()
 	
 func get_which_wall_collided():
 	for i in range(get_slide_count()):
@@ -71,7 +86,15 @@ func handle_gem_picked():
 	gem_indicator_label.text = "0{gems_ammount} / 04".format({"gems_ammount": str(gems_ammount)})
 
 func handle_take_damage():
-	lives = 1
+	if not has_shield:
+		get_tree().reload_current_scene()
+
+func handle_shield_take_damage():
+	remove_child($Shield)
+	start_timer()
+
+func _on_Timer_timeout():
+	has_shield = false
 
 func _on_Player_area_entered(area):
 	var area_name = area.get_name()
@@ -80,3 +103,9 @@ func _on_Player_area_entered(area):
 			handle_gem_picked()
 		"Trap":
 			handle_take_damage()
+
+func _on_Shield_area_entered(area):
+	var area_name = area.get_name()
+	match area_name:
+		"Trap":
+			handle_shield_take_damage()
