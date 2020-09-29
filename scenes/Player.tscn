@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/UI/EnergyBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/UI/Energy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sprites/test/shield.png" type="Texture" id=6]
+[ext_resource path="res://scenes/worlds/dirt/World1/World1MiniMap.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25.2421, 25.2145 )
@@ -17,7 +18,7 @@ extents = Vector2( 25.8367, 26.5996 )
 extents = Vector2( 31.6365, 32.0582 )
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 128, 576 )
+position = Vector2( 309.465, 200.252 )
 z_index = 1
 script = ExtResource( 1 )
 
@@ -43,22 +44,7 @@ position = Vector2( -0.767208, -18.6481 )
 current = true
 zoom = Vector2( 0.6, 0.6 )
 smoothing_enabled = true
-smoothing_speed = 10.0
-
-[node name="EnergyBar" parent="." instance=ExtResource( 4 )]
-margin_left = -258.698
-margin_top = 93.4129
-margin_right = -98.6986
-margin_bottom = 110.413
-
-[node name="Energy" parent="." instance=ExtResource( 5 )]
-
-[node name="GemsIndicator" parent="." instance=ExtResource( 3 )]
-margin_left = -246.6
-margin_top = -131.514
-margin_right = -246.6
-margin_bottom = -131.514
-rect_scale = Vector2( 0.52, 0.519998 )
+smoothing_speed = 20.0
 
 [node name="Shield" type="Sprite" parent="."]
 position = Vector2( -0.249817, 0.306985 )
@@ -69,5 +55,50 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield/Shield"]
 shape = SubResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GemsIndicator" parent="CanvasLayer" instance=ExtResource( 3 )]
+margin_left = 89.3713
+margin_top = 73.7365
+margin_right = 91.3713
+margin_bottom = 75.7365
+
+[node name="EnergyBar" parent="CanvasLayer" instance=ExtResource( 4 )]
+margin_left = 56.9547
+margin_top = 474.96
+margin_right = 216.954
+margin_bottom = 491.96
+rect_scale = Vector2( 1.7, 1.7 )
+
+[node name="Energy" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.658824 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -300.799
+margin_top = 15.5564
+margin_right = -19.7991
+margin_bottom = 218.556
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="CanvasLayer/ViewportContainer"]
+size = Vector2( 281, 203 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer/ViewportContainer/Viewport"]
+anchor_mode = 0
+current = true
+zoom = Vector2( 15, 15 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+
+[node name="World1Map" parent="CanvasLayer/ViewportContainer/Viewport" instance=ExtResource( 7 )]
 [connection signal="area_entered" from="Player" to="." method="_on_Player_area_entered"]
 [connection signal="area_entered" from="Shield/Shield" to="." method="_on_Shield_area_entered"]

@@ -10,10 +10,10 @@ var gems_ammount = 0
 var has_shield = true
 var _timer = null
 
-onready var energy_bar = $EnergyBar
-onready var player_energy = $Energy
+onready var energy_bar = $CanvasLayer/EnergyBar
+onready var player_energy = $CanvasLayer/Energy
 
-onready var gem_indicator_label = $GemsIndicator/Label
+onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
 
 func get_timer():
 	_timer = Timer.new()
