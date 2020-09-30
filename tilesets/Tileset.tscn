@@ -3,24 +3,27 @@
 [ext_resource path="res://tilesets/TilesetTestAstroMiner.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.109, 15.9837 )
+extents = Vector2( 32, 32 )
 
 [node name="Tileset" type="Node2D"]
 position = Vector2( 64, 0 )
 
 [node name="cornerTopLeft" type="Sprite" parent="."]
+position = Vector2( -32, -32 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="cornerTopLeft"]
+position = Vector2( 32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cornerTopLeft/StaticBody2D"]
-position = Vector2( -0.121521, -0.159084 )
+position = Vector2( -32, -32 )
+scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="middleTop" type="Sprite" parent="."]
-position = Vector2( 127.528, 0 )
+position = Vector2( 128, -32 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 0, 32, 32 )
@@ -29,7 +32,8 @@ region_rect = Rect2( 32, 0, 32, 32 )
 position = Vector2( 0.0607605, 0.117613 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="middleTop/StaticBody2D2"]
-position = Vector2( -0.121521, -0.159084 )
+position = Vector2( -0.0607605, -0.117615 )
+scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="cornerTopRight" type="Sprite" parent="."]
