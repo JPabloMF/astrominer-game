@@ -11,8 +11,10 @@
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 704, 960 )
 initialDirection = "right"
+mini_map = "res://scenes/worlds/dirt/World1/World1MiniMap.tscn"
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 position = Vector2( 768, 960 )
 tile_set = ExtResource( 2 )
 format = 1

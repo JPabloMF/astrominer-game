@@ -3,17 +3,21 @@ extends KinematicBody2D
 const ACCELERATION = 500
 const MAX_SPEED = 250
 var motion = Vector2()
+
 export (String,"right","left","up","down") var initialDirection
 const DIRECTIONS = {"RIGHT": "right", "LEFT": "left", "UP": "up", "DOWN": "down"}
+
 var flyDistance = 100
 var gems_ammount = 0
 var has_shield = true
+
 var _timer = null
 
 onready var energy_bar = $CanvasLayer/EnergyBar
 onready var player_energy = $CanvasLayer/Energy
-
 onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
+
+export(String,FILE,"*.tscn") var mini_map
 
 func get_timer():
 	_timer = Timer.new()
@@ -28,11 +32,17 @@ func start_timer():
 func stop_timer():
 	_timer.stop()
 
+func load_minimap():
+	var scene = load(mini_map)
+	var instacedScene = scene.instance()
+	$CanvasLayer/ViewportContainer/Viewport.add_child(instacedScene)
+
 func _ready():
 	player_energy.connect("changed",energy_bar,"set_value")
 	player_energy.connect("max_changed",energy_bar,"set_max")
 	player_energy.initialize()
 	get_timer()
+	load_minimap()
 	
 func get_which_wall_collided():
 	for i in range(get_slide_count()):
