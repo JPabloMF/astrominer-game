@@ -23,7 +23,7 @@ tile_data = PoolIntArray( -917516, 0, 0, -917515, 0, 0, -917514, 0, 0, -917513, 
 [node name="WorldComplete" parent="." instance=ExtResource( 3 )]
 position = Vector2( 3008, 960 )
 z_index = 2
-next_world = "res://scenes/worlds/dirt/World2.tscn"
+next_world = "res://scenes/worlds/dirt/World2/World2.tscn"
 
 [node name="Gem" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1311.95, 1696.05 )

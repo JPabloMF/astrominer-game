@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://sprites/test/ice.png" type="Texture" id=1]
 [ext_resource path="res://sprites/test/dirt.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://sprites/test/cristal.png" type="Texture" id=5]
 [ext_resource path="res://sprites/test/forest.png" type="Texture" id=6]
 [ext_resource path="res://sprites/test/wood-platform.png" type="Texture" id=7]
+[ext_resource path="res://sprites/test/trap.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31.9786, 31.9939 )
@@ -45,22 +46,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="cristal"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="cristal/StaticBody2D"]
-shape = SubResource( 1 )
-
 [node name="forest" type="Sprite" parent="."]
 position = Vector2( 320, 64 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="StaticBody2D" type="StaticBody2D" parent="forest"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="forest/StaticBody2D"]
-shape = SubResource( 1 )
 
 [node name="ice" type="Sprite" parent="."]
 position = Vector2( 448, 64 )
@@ -85,6 +76,13 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lava/StaticBody2D"]
 shape = SubResource( 1 )
+
+[node name="trap" type="Sprite" parent="."]
+position = Vector2( 576, 160 )
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="bg" type="Sprite" parent="."]
 position = Vector2( 704, 64 )
