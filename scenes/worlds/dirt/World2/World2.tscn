@@ -9,11 +9,10 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 2368, 512 )
-initialDirection = "left"
 mini_map = "res://scenes/worlds/dirt/World2/World2MiniMap.tscn"
 
 [node name="WorldComplete" parent="." instance=ExtResource( 3 )]
-position = Vector2( 192, 1344 )
+position = Vector2( 192, 1376 )
 next_world = "res://scenes/worlds/dirt/World3.tscn"
 
 [node name="TileMap2" type="TileMap" parent="."]
@@ -34,3 +33,4 @@ position = Vector2( 672, 992 )
 
 [node name="Gem4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 224, 992 )
+[connection signal="gems_ammount_changed" from="Player" to="WorldComplete" method="_on_Player_gems_ammount_changed"]

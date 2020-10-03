@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 const ACCELERATION = 500
-const MAX_SPEED = 250
+const MAX_SPEED = 350
+const MAX_SPEED_AIR = 250
 var motion = Vector2()
 
 var flyDistance = 100
@@ -71,9 +72,15 @@ func handle_vertical_movement():
 	
 func handle_horizontal_movement():
 	if Input.is_action_pressed("ui_left"):
-		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
+		if not is_on_floor():
+			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED_AIR)
+		else:
+			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 	elif Input.is_action_pressed("ui_right"):
-		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
+		if not is_on_floor():
+			motion.x = min(motion.x + ACCELERATION, MAX_SPEED_AIR)
+		else:
+			motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 	else:
 		if not is_on_floor():
 			motion.x = lerp(motion.x, 0, 0.2)
