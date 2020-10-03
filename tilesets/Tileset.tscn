@@ -9,10 +9,12 @@ extents = Vector2( 32, 32 )
 position = Vector2( 64, 0 )
 
 [node name="cornerTopLeft" type="Sprite" parent="."]
-position = Vector2( -32, -32 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 32, 32 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="StaticBody2D" type="StaticBody2D" parent="cornerTopLeft"]
 position = Vector2( 32, 32 )
@@ -23,10 +25,13 @@ scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="middleTop" type="Sprite" parent="."]
-position = Vector2( 128, -32 )
+position = Vector2( 96, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 0, 32, 32 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="middleTop"]
 position = Vector2( 0.0607605, 0.117613 )
@@ -37,46 +42,94 @@ scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="cornerTopRight" type="Sprite" parent="."]
-position = Vector2( 256, 0 )
+position = Vector2( 192, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 0, 32, 32 )
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="cornerTopRight"]
+position = Vector2( -95.9392, 0.117613 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cornerTopRight/StaticBody2D3"]
+position = Vector2( 95.9392, -0.117613 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
 [node name="Right" type="Sprite" parent="."]
-position = Vector2( 256, 128 )
+position = Vector2( 192, 80 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 32, 32, 32 )
 
+[node name="StaticBody2D4" type="StaticBody2D" parent="Right"]
+position = Vector2( -95.9392, -79.8824 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right/StaticBody2D4"]
+position = Vector2( 95.9392, 79.8824 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
 [node name="Middle" type="Sprite" parent="."]
-position = Vector2( 128, 128 )
+position = Vector2( 96, 80 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 32, 32, 32 )
 
 [node name="Left" type="Sprite" parent="."]
-position = Vector2( 0, 128 )
+position = Vector2( 0, 80 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 32, 32, 32 )
 
+[node name="StaticBody2D5" type="StaticBody2D" parent="Left"]
+position = Vector2( 96.0608, -79.8824 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left/StaticBody2D5"]
+position = Vector2( -96.0608, 79.8824 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
 [node name="cornerBottomLeft" type="Sprite" parent="."]
-position = Vector2( 0, 256 )
+position = Vector2( 0, 160 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 64, 32, 32 )
 
+[node name="StaticBody2D6" type="StaticBody2D" parent="cornerBottomLeft"]
+position = Vector2( 96.0608, -159.882 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cornerBottomLeft/StaticBody2D6"]
+position = Vector2( -96.0608, 159.882 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
 [node name="middleBottom" type="Sprite" parent="."]
-position = Vector2( 128, 256.472 )
+position = Vector2( 96, 160 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 64, 32, 32 )
 
+[node name="StaticBody2D7" type="StaticBody2D" parent="middleBottom"]
+position = Vector2( 0.0607605, -159.882 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="middleBottom/StaticBody2D7"]
+position = Vector2( -0.0607605, 159.882 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
+
 [node name="cornerBottomRight" type="Sprite" parent="."]
-position = Vector2( 256, 256 )
+position = Vector2( 192, 160 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 64, 32, 32 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="cornerBottomRight"]
+position = Vector2( -95.9392, -159.882 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cornerBottomRight/StaticBody2D8"]
+position = Vector2( 95.9392, 159.882 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 1 )
 
 [node name="background" type="Sprite" parent="."]
 position = Vector2( 378.308, -3.84229 )

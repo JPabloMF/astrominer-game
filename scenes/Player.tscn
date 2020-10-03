@@ -58,35 +58,34 @@ shape = SubResource( 3 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GemsIndicator" parent="CanvasLayer" instance=ExtResource( 3 )]
-margin_left = 89.3713
-margin_top = 73.7365
-margin_right = 91.3713
-margin_bottom = 75.7365
+margin_left = 77.4658
+margin_top = 34.0515
+margin_right = 79.4658
+margin_bottom = 36.0515
 
 [node name="EnergyBar" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = 56.9547
-margin_top = 474.96
-margin_right = 216.954
-margin_bottom = 491.96
+margin_left = 54.5736
+margin_top = 399.559
+margin_right = 214.573
+margin_bottom = 416.559
 rect_scale = Vector2( 1.7, 1.7 )
 
 [node name="Energy" parent="CanvasLayer" instance=ExtResource( 5 )]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0.807843 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -300.799
-margin_top = 15.5564
-margin_right = -19.7991
-margin_bottom = 218.556
+margin_left = -260.082
+margin_top = 434.621
+margin_right = 20.9183
+margin_bottom = 637.621
 stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Viewport" type="Viewport" parent="CanvasLayer/ViewportContainer"]
-size = Vector2( 280, 202 )
+size = Vector2( 281, 202 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
