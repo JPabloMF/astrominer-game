@@ -39,7 +39,7 @@ __meta__ = {
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="cristal" type="Sprite" parent="."]
+[node name="cristalnocoll" type="Sprite" parent="."]
 position = Vector2( 192, 64 )
 texture = ExtResource( 5 )
 __meta__ = {
