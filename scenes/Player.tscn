@@ -96,5 +96,9 @@ current = true
 zoom = Vector2( 15, 15 )
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
+
+[node name="StayTrapTimer" type="Timer" parent="."]
 [connection signal="area_entered" from="Player" to="." method="_on_Player_area_entered"]
+[connection signal="area_exited" from="Player" to="." method="_on_Player_area_exited"]
 [connection signal="area_entered" from="Shield/Shield" to="." method="_on_Shield_area_entered"]
+[connection signal="timeout" from="StayTrapTimer" to="." method="_on_StayTrapTimer_timeout"]

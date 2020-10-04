@@ -9,6 +9,7 @@ var flyDistance = 100
 var gems_ammount = 0
 var has_shield = true
 var _timer = null
+var player_is_in_trap = false
 
 onready var energy_bar = $CanvasLayer/EnergyBar
 onready var player_energy = $CanvasLayer/Energy
@@ -17,16 +18,6 @@ onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
 export(String,FILE,"*.tscn") var mini_map
 
 signal gems_ammount_changed
-
-func get_timer():
-	_timer = Timer.new()
-	add_child(_timer)
-	_timer.connect("timeout", self, "_on_Timer_timeout")
-	_timer.set_wait_time(1.5)
-	_timer.set_one_shot(false) # Make sure it loops
-	
-func start_timer():
-	_timer.start()
 
 func load_minimap():
 	var scene = load(mini_map)
@@ -37,7 +28,6 @@ func _ready():
 	player_energy.connect("changed",energy_bar,"set_value")
 	player_energy.connect("max_changed",energy_bar,"set_max")
 	player_energy.initialize()
-	get_timer()
 	load_minimap()
 	emit_signal("gems_ammount_changed",gems_ammount)
 	
@@ -69,7 +59,7 @@ func handle_vertical_movement():
 			else:
 				flyDistance += 0.5
 			player_energy.current = flyDistance
-	
+
 func handle_horizontal_movement():
 	if Input.is_action_pressed("ui_left"):
 		if not is_on_floor():
@@ -86,11 +76,12 @@ func handle_horizontal_movement():
 			motion.x = lerp(motion.x, 0, 0.2)
 		else:
 			motion.x = lerp(motion.x, 0, 1)
-	
+
 func _physics_process(delta):
 	handle_apply_gravity()
 	handle_horizontal_movement()
 	handle_vertical_movement()
+	handle_take_damage()
 	
 	motion = move_and_slide(motion,Vector2.UP)
 
@@ -100,14 +91,11 @@ func handle_gem_picked():
 	emit_signal("gems_ammount_changed",gems_ammount)
 
 func handle_take_damage():
-	if not has_shield:
-		get_tree().reload_current_scene()
+	if not has_shield and $StayTrapTimer.is_stopped():
+		$StayTrapTimer.start()
 
 func handle_shield_take_damage():
 	remove_child($Shield)
-	start_timer()
-
-func _on_Timer_timeout():
 	has_shield = false
 
 func _on_Player_area_entered(area):
@@ -116,10 +104,21 @@ func _on_Player_area_entered(area):
 		"Gem":
 			handle_gem_picked()
 		"Trap":
-			handle_take_damage()
+			player_is_in_trap = true
+
+func _on_Player_area_exited(area):
+	var area_name = area.get_name()
+	match area_name:
+		"Trap":
+			player_is_in_trap = false
 
 func _on_Shield_area_entered(area):
 	var area_name = area.get_name()
 	match area_name:
 		"Trap":
 			handle_shield_take_damage()
+
+func _on_StayTrapTimer_timeout():
+	if player_is_in_trap:
+		get_tree().reload_current_scene()
+
