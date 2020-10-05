@@ -16,7 +16,7 @@ mini_map = "res://scenes/worlds/dirt/World2/World2MiniMap.tscn"
 
 [node name="WorldComplete" parent="." instance=ExtResource( 3 )]
 position = Vector2( 192, 1376 )
-next_world = "res://scenes/worlds/dirt/World3.tscn"
+next_world = "res://scenes/worlds/dirt/World3/World3.tscn"
 
 [node name="TileMap2" type="TileMap" parent="."]
 scale = Vector2( 2, 2 )
