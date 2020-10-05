@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Astro Miner"
-run/main_scene="res://scenes/UI/StartMenu.tscn"
+run/main_scene="res://scenes/worlds/dirt/World3/World3.tscn"
 config/icon="res://icon.png"
 
 [display]
