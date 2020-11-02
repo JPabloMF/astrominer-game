@@ -10,19 +10,20 @@ func _on_WorldComplete_area_entered(area):
 		play("open")
 		$Timer.start()
 
-func _on_Player_gems_ammount_changed(ammount):
-	gems_ammount = ammount
-	match ammount:
-		0:
-			play("default")
-		1:
-			play("1diamond")
-		2:
-			play("2diamond")
-		3:
-			play("3diamond")
-		4:
-			play("4diamond")
-
 func _on_Timer_timeout():
 	get_tree().change_scene(next_world)
+
+func _on_get_gem(type):
+	match type:
+		"blue":
+			$blueDiamond.show()
+			gems_ammount = gems_ammount + 1
+		"green":
+			$greenDiamond.show()
+			gems_ammount = gems_ammount + 1
+		"pink":
+			$pinkDiamond.show()
+			gems_ammount = gems_ammount + 1
+		"yellow":
+			$yellowDiamond.show()
+			gems_ammount = gems_ammount + 1

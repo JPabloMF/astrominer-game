@@ -3,6 +3,8 @@ extends Node2D
 export (String,FILE,"*.png") var diamond_sprite
 export (String,"blue","green","pink","yellow") var diamond_color = "blue"
 
+signal get_gem
+
 func load_diamond_animation():
 	var sprite
 	match diamond_color:
@@ -25,6 +27,7 @@ func _ready():
 
 func _on_Coin_area_entered(area):
 	if "Player" in area.get_name():
+		emit_signal("get_gem",diamond_color)
 		remove_child($Diamond)
 		$collisionTimer.start()
 

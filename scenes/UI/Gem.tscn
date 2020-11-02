@@ -33,5 +33,6 @@ playing = true
 
 [node name="collisionTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
 [connection signal="area_entered" from="Gem" to="." method="_on_Coin_area_entered"]
 [connection signal="timeout" from="collisionTimer" to="." method="_on_collisionTimer_timeout"]
