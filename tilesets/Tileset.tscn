@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://tilesets/TilesetTestAstroMiner.png" type="Texture" id=1]
 [ext_resource path="res://sprites/traps/acid/acid2.png" type="Texture" id=2]
@@ -13,7 +13,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[sub_resource type="AnimatedTexture" id=2]
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 16.0001, 16 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 15.9999, 16 )
+
+[sub_resource type="AnimatedTexture" id=4]
 frames = 8
 fps = 12.6
 frame_0/texture = ExtResource( 4 )
@@ -230,45 +236,70 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 192, 64, 32, 32 )
 
-[node name="insideRock" type="Sprite" parent="."]
+[node name="backPilar" type="Sprite" parent="."]
 position = Vector2( 812.073, -6.17519 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 224, 0, 32, 32 )
 
-[node name="insideRock2" type="Sprite" parent="."]
+[node name="backPilarBase" type="Sprite" parent="."]
 position = Vector2( 810.884, 129.394 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 224, 32, 32, 32 )
 
-[node name="insideRock3" type="Sprite" parent="."]
-position = Vector2( 812.668, 212.639 )
+[node name="bottomgrass2" type="Sprite" parent="."]
+position = Vector2( 816, 208 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 224, 64, 32, 32 )
 
-[node name="insideBottom" type="Sprite" parent="."]
-position = Vector2( 896.507, -5.58058 )
+[node name="StaticBody2D" type="StaticBody2D" parent="bottomgrass2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottomgrass2/StaticBody2D"]
+shape = SubResource( 5 )
+
+[node name="bottomgrass" type="Sprite" parent="."]
+position = Vector2( 896, 0 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 256, 64, 32, 32 )
 
-[node name="pilar" type="Sprite" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="bottomgrass"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottomgrass/StaticBody2D"]
+shape = SubResource( 3 )
+
+[node name="frontpilar" type="Sprite" parent="."]
 position = Vector2( 894.617, 126.081 )
+z_index = 5
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 256, 32, 32, 32 )
 
-[node name="pilarBase" type="Sprite" parent="."]
+[node name="frontpilarBase" type="Sprite" parent="."]
 position = Vector2( 893.823, 211.007 )
+z_index = 5
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 256, 0, 32, 32 )
 
+[node name="rock" type="Sprite" parent="."]
+position = Vector2( 960, 208 )
+z_index = 5
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 288, 0, 32, 32 )
+
+[node name="wallLamp" type="Sprite" parent="."]
+position = Vector2( 1024, 208 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 288, 32, 32, 32 )
+
 [node name="Acid" type="Sprite" parent="."]
 position = Vector2( 896, 320 )
 scale = Vector2( 2, 2 )
-texture = SubResource( 2 )
+texture = SubResource( 4 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
