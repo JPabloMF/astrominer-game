@@ -8,12 +8,16 @@ func load_diamond_animation():
 	match diamond_color:
 		"blue":
 			sprite = load("res://animations/diamond/DiamondBlue.tres")
+			$Light.set_color(Color(63,63,191,0.01))
 		"green":
 			sprite = load("res://animations/diamond/DiamondGreen.tres")
+			$Light.set_color(Color(63,191,63,0.005))
 		"pink":
 			sprite = load("res://animations/diamond/DiamondPink.tres")
+			$Light.set_color(Color(191,63,127,0.005))
 		"yellow":
 			sprite = load("res://animations/diamond/DiamondYellow.tres")
+			$Light.set_color(Color(191,127,63,0.005))
 	$Diamond.set_sprite_frames(sprite)
 
 func _ready():
@@ -26,3 +30,4 @@ func _on_Coin_area_entered(area):
 
 func _on_collisionTimer_timeout():
 	remove_child($Gem)
+	remove_child($Light)
