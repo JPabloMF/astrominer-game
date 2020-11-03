@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/astrominer.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://scenes/UI/Energy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sprites/test/shield.png" type="Texture" id=6]
 [ext_resource path="res://scenes/UI/PauseMenu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/UI/PlayerIndicator.tscn" type="PackedScene" id=8]
+[ext_resource path="res://sprites/GUI/radar/radar-Sheet.png" type="Texture" id=9]
+[ext_resource path="res://sprites/test/white.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25.2421, 26.1192 )
@@ -16,6 +19,122 @@ extents = Vector2( 25.8367, 26.5996 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 31.6365, 32.0582 )
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float screen_width = 1024;
+uniform float screen_height = 600;
+
+// Curvature
+uniform float BarrelPower =1.1;
+// Color bleeding
+uniform float color_bleeding = 1.2;
+uniform float bleeding_range_x = 3;
+uniform float bleeding_range_y = 3;
+// Scanline
+uniform float lines_distance = 4.0;
+uniform float scan_size = 2.0;
+uniform float scanline_alpha = 0.9;
+uniform float lines_velocity = 10.0;
+
+vec2 distort(vec2 p) 
+{
+	float angle = p.y / p.x;
+	float theta = atan(p.y,p.x);
+	float radius = pow(length(p), BarrelPower);
+	
+	p.x = radius * cos(theta);
+	p.y = radius * sin(theta);
+	
+	return 0.5 * (p + vec2(1.0,1.0));
+}
+
+void get_color_bleeding(inout vec4 current_color,inout vec4 color_left){
+	current_color = current_color*vec4(color_bleeding,0.5,1.0-color_bleeding,1);
+	color_left = color_left*vec4(1.0-color_bleeding,0.5,color_bleeding,1);
+}
+
+void get_color_scanline(vec2 uv,inout vec4 c,float time){
+	float line_row = floor((uv.y * screen_height/scan_size) + mod(time*lines_velocity, lines_distance));
+	float n = 1.0 - ceil((mod(line_row,lines_distance)/lines_distance));
+	c = c - n*c*(1.0 - scanline_alpha);
+	c.a = 1.0;
+}
+
+void fragment()
+{
+	vec2 xy = SCREEN_UV * 2.0;
+	xy.x -= 1.0;
+	xy.y -= 1.0;
+	
+	float d = length(xy);
+	xy = SCREEN_UV;
+	
+	float pixel_size_x = 0.0/screen_width*bleeding_range_x;
+	float pixel_size_y = 0.0/screen_height*bleeding_range_y;
+	vec4 color_left = texture(SCREEN_TEXTURE,xy - vec2(pixel_size_x, pixel_size_y));
+	vec4 current_color = texture(SCREEN_TEXTURE,xy);
+	get_color_bleeding(current_color,color_left);
+	vec4 c = current_color+color_left;
+	get_color_scanline(xy,c,TIME);
+	COLOR = c;
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/screen_width = 1024.0
+shader_param/screen_height = 600.0
+shader_param/BarrelPower = 1.1
+shader_param/color_bleeding = 1.2
+shader_param/bleeding_range_x = 3.0
+shader_param/bleeding_range_y = 3.0
+shader_param/lines_distance = 4.0
+shader_param/scan_size = 2.0
+shader_param/scanline_alpha = 0.9
+shader_param/lines_velocity = 10.0
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 9 )
+region = Rect2( 128, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 9 )
+region = Rect2( 256, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 9 )
+region = Rect2( 384, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 9 )
+region = Rect2( 512, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 9 )
+region = Rect2( 640, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 9 )
+region = Rect2( 768, 0, 128, 69 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 896, 0, 128, 69 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 309.465, 200.252 )
@@ -63,19 +182,25 @@ shape = SubResource( 3 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GemsIndicator" parent="CanvasLayer" instance=ExtResource( 3 )]
-margin_left = 77.4658
-margin_top = 34.0515
-margin_right = 79.4658
-margin_bottom = 36.0515
+margin_left = 102.0
+margin_top = 52.0
+margin_right = 104.0
+margin_bottom = 54.0
 
 [node name="EnergyBar" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = 54.5736
-margin_top = 399.559
-margin_right = 214.573
-margin_bottom = 416.559
+margin_left = 38.9438
+margin_top = 340.0
+margin_right = 162.943
+margin_bottom = 362.0
 rect_scale = Vector2( 1.7, 1.7 )
 
 [node name="Energy" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[node name="PlayerIndicator" parent="CanvasLayer" instance=ExtResource( 8 )]
+margin_left = 64.0
+margin_top = 84.0
+margin_right = 64.0
+margin_bottom = 84.0
 
 [node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer"]
 anchor_left = 1.0
@@ -88,6 +213,20 @@ stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ViewportContainer"]
+material = SubResource( 5 )
+margin_right = 200.0
+margin_bottom = 90.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer/ViewportContainer"]
+position = Vector2( 100.558, 39.8477 )
+scale = Vector2( 1.63867, 1.54858 )
+frames = SubResource( 14 )
+frame = 1
+playing = true
 
 [node name="Viewport" type="Viewport" parent="CanvasLayer/ViewportContainer"]
 size = Vector2( 281, 202 )

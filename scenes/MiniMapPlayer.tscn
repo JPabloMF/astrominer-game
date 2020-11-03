@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/MiniMapPlayer.gd" type="Script" id=1]
-[ext_resource path="res://sprites/test/cristal.png" type="Texture" id=2]
+[ext_resource path="res://sprites/test/lava.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.4638, 16.2662 )

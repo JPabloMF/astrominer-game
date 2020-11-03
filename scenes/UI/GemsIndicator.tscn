@@ -1,39 +1,48 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://fonts/Roboto-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://sprites/test/square-coin.png" type="Texture" id=2]
+[ext_resource path="res://sprites/GUI/diamond/diamond-bar-Sheet.png" type="Texture" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-size = 26
-font_data = ExtResource( 1 )
-
-[sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
-
-[node name="GemsIndicator" type="NinePatchRect"]
+[node name="GemsIndicator" type="Control"]
+anchor_right = 0.021
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 82.0
-margin_bottom = 40.0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Base" type="Sprite" parent="."]
+position = Vector2( 73.6327, 18.8055 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 73, 19 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = 25.2611
-margin_top = 3.63823
-margin_right = 107.261
-margin_bottom = 35.6382
-size_flags_horizontal = 4
-theme = SubResource( 2 )
-text = "00 / 04"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="blueDiamond" type="Sprite" parent="."]
+visible = false
+position = Vector2( 73.6327, 18.8055 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 75, 0, 67, 19 )
+
+[node name="greenDiamond" type="Sprite" parent="."]
+visible = false
+position = Vector2( 73.6327, 18.8055 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 144, 0, 75, 19 )
+
+[node name="pinkDiamond" type="Sprite" parent="."]
+visible = false
+position = Vector2( 73.6327, 18.8055 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 221, 0, 67, 19 )
+
+[node name="yellowDiamond" type="Sprite" parent="."]
+visible = false
+position = Vector2( 73.6327, 18.8055 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 290, 0, 75, 19 )

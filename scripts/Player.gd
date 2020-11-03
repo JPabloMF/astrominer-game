@@ -13,11 +13,9 @@ var player_is_in_trap = false
 
 onready var energy_bar = $CanvasLayer/EnergyBar
 onready var player_energy = $CanvasLayer/Energy
-onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
+#onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
 
 export(String,FILE,"*.tscn") var mini_map
-
-signal gems_ammount_changed
 
 func load_minimap():
 	var scene = load(mini_map)
@@ -29,8 +27,18 @@ func _ready():
 	player_energy.connect("max_changed",energy_bar,"set_max")
 	player_energy.initialize()
 	load_minimap()
-	emit_signal("gems_ammount_changed",gems_ammount)
-	
+
+#func set_energybar_color(ammount):
+#	match ammount:
+#		90:
+#			$CanvasLayer/EnergyBar.
+#		85:
+#			$CanvasLayer/GemsIndicator/greenDiamond.show()
+#		80:
+#			$CanvasLayer/GemsIndicator/pinkDiamond.show()
+#		75:
+#			$CanvasLayer/GemsIndicator/yellowDiamond.show()
+
 func get_which_wall_collided():
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
@@ -85,10 +93,16 @@ func _physics_process(delta):
 	
 	motion = move_and_slide(motion,Vector2.UP)
 
-func handle_gem_picked():
-	gems_ammount += 1
-	gem_indicator_label.text = "0{gems_ammount} / 04".format({"gems_ammount": str(gems_ammount)})
-	emit_signal("gems_ammount_changed",gems_ammount)
+func handle_gem_picked(type):
+	match type:
+		"blue":
+			$CanvasLayer/GemsIndicator/blueDiamond.show()
+		"green":
+			$CanvasLayer/GemsIndicator/greenDiamond.show()
+		"pink":
+			$CanvasLayer/GemsIndicator/pinkDiamond.show()
+		"yellow":
+			$CanvasLayer/GemsIndicator/yellowDiamond.show()
 
 func handle_take_damage():
 	if not has_shield and $StayTrapTimer.is_stopped():
@@ -101,8 +115,6 @@ func handle_shield_take_damage():
 func _on_Player_area_entered(area):
 	var area_name = area.get_name()
 	match area_name:
-		"Gem":
-			handle_gem_picked()
 		"Trap":
 			player_is_in_trap = true
 
@@ -122,3 +134,5 @@ func _on_StayTrapTimer_timeout():
 	if player_is_in_trap:
 		get_tree().reload_current_scene()
 
+func _on_get_gem(type):
+	handle_gem_picked(type)

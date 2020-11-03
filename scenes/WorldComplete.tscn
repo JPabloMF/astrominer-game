@@ -101,11 +101,11 @@ region = Rect2( 1344, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 48, 64 )
+region = Rect2( 96, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 48, 64 )
+region = Rect2( 48, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
@@ -113,7 +113,7 @@ region = Rect2( 192, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 48, 64 )
+region = Rect2( 144, 0, 48, 64 )
 
 [sub_resource type="SpriteFrames" id=29]
 animations = [ {
@@ -129,12 +129,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 25 ) ],
 "loop": true,
-"name": "pinkDiamond",
+"name": "greenDiamond",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 26 ) ],
 "loop": true,
-"name": "greenDiamond",
+"name": "blueDiamond",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 27 ) ],
@@ -144,7 +144,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 28 ) ],
 "loop": true,
-"name": "blueDiamond",
+"name": "pinkDiamond",
 "speed": 5.0
 } ]
 
