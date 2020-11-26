@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://sprites/light/top-light.png" type="Texture" id=1]
+
+[node name="top-light" type="Light2D"]
+position = Vector2( 736, 960 )
+scale = Vector2( 0.999999, 1 )
+texture = ExtResource( 1 )
+energy = 1.82
