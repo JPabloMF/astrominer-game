@@ -8,12 +8,12 @@ var motion = Vector2()
 var flyDistance = 100
 var gems_ammount = 0
 var has_shield = true
-var _timer = null
 var player_is_in_trap = false
+var timer_trap_finished = false
+var last_horizontal_direction = "right"
 
 onready var energy_bar = $CanvasLayer/EnergyBar
 onready var player_energy = $CanvasLayer/Energy
-#onready var gem_indicator_label = $CanvasLayer/GemsIndicator/Label
 
 export(String,FILE,"*.tscn") var mini_map
 
@@ -39,6 +39,14 @@ func _ready():
 #		75:
 #			$CanvasLayer/GemsIndicator/yellowDiamond.show()
 
+func trigger_rocket():
+	$RocketFire.show()
+	$RocketFireLight.show()
+	
+func stop_rocket():
+	$RocketFire.hide()
+	$RocketFireLight.hide()
+
 func get_which_wall_collided():
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
@@ -61,8 +69,12 @@ func handle_vertical_movement():
 			motion.y = -300
 			player_energy.current = flyDistance
 			$RocketSmoke.emitting = true
+			trigger_rocket()
+		else:
+			stop_rocket()
 	else:
 		$RocketSmoke.emitting = false
+		stop_rocket()
 		if flyDistance < 100:
 			if is_on_floor():
 				flyDistance += 1
@@ -78,6 +90,7 @@ func handle_horizontal_movement():
 		else:
 			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 			$AnimationPlayer.play("runLeft")
+			last_horizontal_direction = "left"
 	elif Input.is_action_pressed("ui_right"):
 		if not is_on_floor():
 			motion.x = min(motion.x + ACCELERATION, MAX_SPEED_AIR)
@@ -85,9 +98,14 @@ func handle_horizontal_movement():
 		else:
 			motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 			$AnimationPlayer.play("runRight")
+			last_horizontal_direction = "right"
 	else:
 		if not is_on_floor():
 			motion.x = lerp(motion.x, 0, 0.2)
+			if last_horizontal_direction == "right":
+				$AnimationPlayer.play("flyRight")
+			else:
+				$AnimationPlayer.play("flyLeft")
 		else:
 			motion.x = lerp(motion.x, 0, 1)
 			$AnimationPlayer.play("iddle")
@@ -112,11 +130,14 @@ func handle_gem_picked(type):
 			$CanvasLayer/GemsIndicator/yellowDiamond.show()
 
 func handle_take_damage():
+	if timer_trap_finished and player_is_in_trap and not has_shield:
+		get_tree().reload_current_scene()
 	if not has_shield and $StayTrapTimer.is_stopped():
 		$StayTrapTimer.start()
 
 func handle_shield_take_damage():
 	remove_child($Shield)
+	$CanvasLayer/PlayerIndicator/Player.play("damage")
 	has_shield = false
 
 func _on_Player_area_entered(area):
@@ -138,6 +159,7 @@ func _on_Shield_area_entered(area):
 			handle_shield_take_damage()
 
 func _on_StayTrapTimer_timeout():
+	timer_trap_finished = true
 	if player_is_in_trap:
 		get_tree().reload_current_scene()
 
