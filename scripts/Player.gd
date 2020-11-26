@@ -60,7 +60,9 @@ func handle_vertical_movement():
 			flyDistance -= 1
 			motion.y = -300
 			player_energy.current = flyDistance
+			$RocketSmoke.emitting = true
 	else:
+		$RocketSmoke.emitting = false
 		if flyDistance < 100:
 			if is_on_floor():
 				flyDistance += 1
@@ -72,18 +74,23 @@ func handle_horizontal_movement():
 	if Input.is_action_pressed("ui_left"):
 		if not is_on_floor():
 			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED_AIR)
+			$AnimationPlayer.play("flyLeft")
 		else:
 			motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
+			$AnimationPlayer.play("runLeft")
 	elif Input.is_action_pressed("ui_right"):
 		if not is_on_floor():
 			motion.x = min(motion.x + ACCELERATION, MAX_SPEED_AIR)
+			$AnimationPlayer.play("flyRight")
 		else:
 			motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
+			$AnimationPlayer.play("runRight")
 	else:
 		if not is_on_floor():
 			motion.x = lerp(motion.x, 0, 0.2)
 		else:
 			motion.x = lerp(motion.x, 0, 1)
+			$AnimationPlayer.play("iddle")
 
 func _physics_process(delta):
 	handle_apply_gravity()
